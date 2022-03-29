@@ -18,3 +18,5 @@ ignore=
     E731
     # Allow markdown inline HTML
     MD033
+    # Allow __init__ imports
+    F401
