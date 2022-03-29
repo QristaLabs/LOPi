@@ -30,3 +30,9 @@ logs/
 # Testing and benchmarks
 .pytest_cache/
 .benchmarks/
+
+# Build
+docs/build
+build/
+dist/
+*.egg-info/
