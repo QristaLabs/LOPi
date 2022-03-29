@@ -2,6 +2,17 @@ import typing as t
 
 
 class DotDict(dict):
+    def __getattr__(self, key: str) -> object:
+        return super().__getitem__(key)
+
+    def __setattr__(self, key: str, value: object) -> None:
+        super().__setattr__(key, value)
+
+    def __delattr__(self, value: str) -> None:
+        super().__delitem__(value)
+
+
+class NestedDotDict(DotDict):
     def __init__(self, dct: t.Optional[dict] = None, **kwargs) -> None:
         if not dct:
             super().__init__(**kwargs)
@@ -25,12 +36,8 @@ class DotDict(dict):
 
         return input
 
-    # Overrides
     def __setattr__(self, key: str, value: object) -> None:
         super().__setattr__(key, self._convert_to_dotdict(value))
 
     def __setitem__(self, key: str, value: object) -> None:
         super().__setitem__(key, self._convert_to_dotdict(value))
-
-    __getattr__ = dict.__getitem__
-    __delattr__ = dict.__delitem__  # type: ignore

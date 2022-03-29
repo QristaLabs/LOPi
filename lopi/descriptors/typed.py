@@ -23,10 +23,7 @@ class MultipleTyped(_TypedDescriptor):
         self.enforce_types = enforce_types
 
     def __set__(self, instance: object, value: object) -> None:
-        if not isinstance(value, self.enforce_types):
-            raise TypeError(f"{self.name} must be of type {self.enforce_types}.")
-
-        instance.__dict__[self.name] = value
+        super().__set__(instance, value)
 
 
 # Descriptors for the specific types

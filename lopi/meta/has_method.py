@@ -7,14 +7,9 @@ class HasMethodMeta(type):
         name: str,
         bases: t.Tuple[type, ...],
         attrs: t.Dict[str, t.Any],
-        **kwargs: t.Any
+        *,
+        method_names: t.Iterable[str]
     ):
-        # Get method(s) name to ensure exists
-        if "method_names" not in kwargs:
-            raise TypeError("Missing method_names")
-
-        method_names = kwargs["method_names"]
-
         # Convert to tuple if not already.
         if isinstance(method_names, str):
             method_names = (method_names,)
@@ -25,6 +20,7 @@ class HasMethodMeta(type):
                 raise TypeError(f"{name} does not have method `{method}`.")
 
             # If the method is a classmethod or staticmethod, ignore.
+            # This is because classmethod and staticmethod objects are descriptors.
             if isinstance(attrs[method], (classmethod, staticmethod)):
                 continue
 
