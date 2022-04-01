@@ -8,7 +8,7 @@ class HasMethodMeta(type):
         bases: t.Tuple[type, ...],
         attrs: t.Dict[str, t.Any],
         *,
-        method_names: t.Iterable[str]
+        method_names: t.Union[str, t.Iterable[str]]
     ):
         # Convert to tuple if not already.
         if isinstance(method_names, str):
